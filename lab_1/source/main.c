@@ -17,17 +17,11 @@ void delay(uint32_t count)
 
 int main()
 {
-	// Select output mode and which pin to drive
+	gpio[GPFSEL1] = 0x40000;
         
     while (1)
     {       
-        //toggle clear register for the chosen pin
-        
-        //apply a delay
-        
-        //toggle set register for the chosen pin
-        
-        //apply a delay
+        gpio[GPSET0] = 0x10000;
     }
     
     return 0;
