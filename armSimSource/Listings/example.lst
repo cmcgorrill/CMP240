@@ -1,0 +1,127 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             |.text|, CODE, READONLY 
+                                                            ; required
+    2 00000000                 ENTRY                        ; required
+    3 00000000 E51F1008        ldr              r1, x       ; VALUE of X
+    4 00000004 E51F2008        ldr              r2, y       ; VALUE of y
+    5 00000008 E0812002        add              r2, r1, r2  ; R2 = x+y
+    6 0000000C E50F2008        str              r2, r
+    7 00000010 E1A01101        lsl              r1,r1,#2
+    8 00000014 E281100C        add              r1, r1, #12
+    9 00000018 E50F1008        str              r1, z       ; put r1 into z
+   10 0000001C E59F3014        ldr              r3, =q
+   11 00000020 E243300C        sub              r3,r3,#12
+   12 00000024 E12FFF13        bx               r3
+   13 00000028 E50F3008        str              r3, x
+   14 0000002C E50F3008        str              r3, y
+   15 00000030 E50F3008        str              r3, z
+   16 00000034         hang
+   17 00000034 EAFFFFFE        b                hang
+   18 00000038         
+   19 00000038         ;Data at 0x40
+   20 00000038 00000000        AREA             UserData, DATA, READWRITE, ALIG
+N=5 
+                                                            ; required
+   21 00000000 FFFFFFFF 
+                       q       DCD              -1          ; Note RPI uses  x:
+                                                             .int 15
+   22 00000004 00000000 
+                       r       DCD              0
+   23 00000008 000000FC 
+                       x       DCD              252
+   24 0000000C 00000008 
+                       y       DCD              8
+   25 00000010 0000029A 
+                       z       DCD              666
+   26 00000014                 END                          ; required
+Command Line: --debug --xref --diag_suppress=9931 --cpu=ARM9E --apcs=interwork 
+--depend=.\objects\example.d -o.\objects\example.o -IC:\Keil_v5\ARM\RV31\INC -I
+C:\Keil_v5\ARM\CMSIS\Include --predefine="__EVAL SETA 1" --predefine="__UVISION
+_VERSION SETA 521" --list=.\listings\example.lst Example.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+.text 00000000
+
+Symbol: .text
+   Definitions
+      At line 1 in file Example.s
+   Uses
+      None
+Comment: .text unused
+hang 00000034
+
+Symbol: hang
+   Definitions
+      At line 16 in file Example.s
+   Uses
+      At line 17 in file Example.s
+Comment: hang used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+UserData 00000000
+
+Symbol: UserData
+   Definitions
+      At line 20 in file Example.s
+   Uses
+      None
+Comment: UserData unused
+q 00000000
+
+Symbol: q
+   Definitions
+      At line 21 in file Example.s
+   Uses
+      At line 10 in file Example.s
+Comment: q used once
+r 00000004
+
+Symbol: r
+   Definitions
+      At line 22 in file Example.s
+   Uses
+      At line 6 in file Example.s
+Comment: r used once
+x 00000008
+
+Symbol: x
+   Definitions
+      At line 23 in file Example.s
+   Uses
+      At line 3 in file Example.s
+      At line 13 in file Example.s
+
+y 0000000C
+
+Symbol: y
+   Definitions
+      At line 24 in file Example.s
+   Uses
+      At line 4 in file Example.s
+      At line 14 in file Example.s
+
+z 00000010
+
+Symbol: z
+   Definitions
+      At line 25 in file Example.s
+   Uses
+      At line 9 in file Example.s
+      At line 15 in file Example.s
+
+6 symbols
+342 symbols in table

@@ -1,0 +1,6 @@
+--cpu ARM9E
+".\objects\example.o"
+--strict --scatter ".\Example.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\Example.map" -o .\Objects\Example.axf
