@@ -24,10 +24,16 @@
   26              		.align	2
   27              		.global	main
   29              	main:
-  30              		@ Volatile: function does not return.
-  31              		@ args = 0, pretend = 0, frame = 0
-  32              		@ frame_needed = 0, uses_anonymous_args = 0
-  33              		@ link register save eliminated.
-  34              	.L3:
-  35 0000 FEFFFFEA 		b	.L3
-  37              		.ident	"GCC: (GNU) 4.7.2"
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33 0000 0020A0E3 		mov	r2, #0
+  34 0004 0137A0E3 		mov	r3, #262144
+  35 0008 202F43E3 		movt	r2, 16160
+  36 000c 043082E5 		str	r3, [r2, #4]
+  37 0010 0138A0E3 		mov	r3, #65536
+  38              	.L3:
+  39 0014 1C3082E5 		str	r3, [r2, #28]
+  40 0018 283082E5 		str	r3, [r2, #40]
+  41 001c FCFFFFEA 		b	.L3
+  43              		.ident	"GCC: (GNU) 4.7.2"

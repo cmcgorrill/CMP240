@@ -12,7 +12,15 @@
 // ....beware compiler optimization....
 void delay(uint32_t count)
 {
-	
+	while  (count>0)
+    {
+        int i = 200000;   // This number is equivalent to 1 ms
+        while (i>0)
+        {
+            i--;
+        }
+        count--;
+    }
 }
 
 int main()
@@ -22,6 +30,10 @@ int main()
     while (1)
     {       
         gpio[GPSET0] = 0x10000;
+        // delay(100);
+        // gpio[GPCLR0] = 0x10000;
+        // delay(100);
+
     }
     
     return 0;
