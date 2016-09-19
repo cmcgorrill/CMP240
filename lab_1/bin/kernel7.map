@@ -11,7 +11,7 @@ LOAD build/boot.o
 LOAD build/gpio.o
 LOAD build/main.o
 
-.text           0x00008000       0x7c
+.text           0x00008000       0xcc
  *(.text*)
  .text          0x00008000        0xc build/boot.o
                 0x00008000                _start
@@ -19,48 +19,48 @@ LOAD build/main.o
                 0x0000800c                convert_pin_to_gpio
                 0x0000802c                convert_gpio_to_pin
                 0x00008050                mmio_write
- .text          0x00008058        0x4 build/main.o
+ .text          0x00008058       0x34 build/main.o
                 0x00008058                delay
- .text.startup  0x0000805c       0x20 build/main.o
-                0x0000805c                main
+ .text.startup  0x0000808c       0x40 build/main.o
+                0x0000808c                main
 
-.glue_7         0x0000807c        0x0
+.glue_7         0x000080cc        0x0
  .glue_7        0x00000000        0x0 linker stubs
 
-.glue_7t        0x0000807c        0x0
+.glue_7t        0x000080cc        0x0
  .glue_7t       0x00000000        0x0 linker stubs
 
-.vfp11_veneer   0x0000807c        0x0
+.vfp11_veneer   0x000080cc        0x0
  .vfp11_veneer  0x00000000        0x0 linker stubs
 
-.v4_bx          0x0000807c        0x0
+.v4_bx          0x000080cc        0x0
  .v4_bx         0x00000000        0x0 linker stubs
 
-.iplt           0x0000807c        0x0
+.iplt           0x000080cc        0x0
  .iplt          0x00000000        0x0 build/boot.o
 
-.rel.dyn        0x0000807c        0x0
+.rel.dyn        0x000080cc        0x0
  .rel.iplt      0x00000000        0x0 build/boot.o
 
-.bss            0x0000807c        0x0
+.bss            0x000080cc        0x0
  *(.bss*)
- .bss           0x0000807c        0x0 build/boot.o
- .bss           0x0000807c        0x0 build/gpio.o
- .bss           0x0000807c        0x0 build/main.o
+ .bss           0x000080cc        0x0 build/boot.o
+ .bss           0x000080cc        0x0 build/gpio.o
+ .bss           0x000080cc        0x0 build/main.o
 
 .rodata
  *(.rodata*)
 
-.data           0x0000807c       0x44
+.data           0x000080cc       0x44
  *(.data*)
- .data          0x0000807c        0x0 build/boot.o
- .data          0x0000807c       0x44 build/gpio.o
-                0x0000807c                pin_to_gpio_array
-                0x000080a4                gpio_to_pin_array
- .data          0x000080c0        0x0 build/main.o
+ .data          0x000080cc        0x0 build/boot.o
+ .data          0x000080cc       0x44 build/gpio.o
+                0x000080cc                pin_to_gpio_array
+                0x000080f4                gpio_to_pin_array
+ .data          0x00008110        0x0 build/main.o
 OUTPUT(build/output.elf elf32-littlearm)
 
-.igot.plt       0x000080c0        0x0
+.igot.plt       0x00008110        0x0
  .igot.plt      0x00000000        0x0 build/boot.o
 
 .ARM.attributes

@@ -6,7 +6,7 @@ Disassembly of section .text:
 
 00008000 <_start>:
     8000:	e3a0d902 	mov	sp, #32768	; 0x8000
-    8004:	eb000014 	bl	805c <main>
+    8004:	eb000020 	bl	808c <main>
 
 00008008 <hang>:
     8008:	eafffffe 	b	8008 <hang>
@@ -19,7 +19,7 @@ Disassembly of section .text:
     801c:	97d30000 	ldrbls	r0, [r3, r0]
     8020:	e6af0070 	sxtb	r0, r0
     8024:	e12fff1e 	bx	lr
-    8028:	0000807c 	.word	0x0000807c
+    8028:	000080cc 	.word	0x000080cc
 
 0000802c <convert_gpio_to_pin>:
     802c:	e6ef3070 	uxtb	r3, r0
@@ -30,21 +30,41 @@ Disassembly of section .text:
     8040:	95d00028 	ldrbls	r0, [r0, #40]	; 0x28
     8044:	e6af0070 	sxtb	r0, r0
     8048:	e12fff1e 	bx	lr
-    804c:	0000807c 	.word	0x0000807c
+    804c:	000080cc 	.word	0x000080cc
 
 00008050 <mmio_write>:
     8050:	e5801000 	str	r1, [r0]
     8054:	e12fff1e 	bx	lr
 
 00008058 <delay>:
-    8058:	e12fff1e 	bx	lr
+    8058:	e24dd008 	sub	sp, sp, #8
+    805c:	e58d0004 	str	r0, [sp, #4]
+    8060:	e59d3004 	ldr	r3, [sp, #4]
+    8064:	e3530000 	cmp	r3, #0
+    8068:	0a000005 	beq	8084 <delay+0x2c>
+    806c:	e59d3004 	ldr	r3, [sp, #4]
+    8070:	e2433001 	sub	r3, r3, #1
+    8074:	e58d3004 	str	r3, [sp, #4]
+    8078:	e59d3004 	ldr	r3, [sp, #4]
+    807c:	e3530000 	cmp	r3, #0
+    8080:	1afffff9 	bne	806c <delay+0x14>
+    8084:	e28dd008 	add	sp, sp, #8
+    8088:	e12fff1e 	bx	lr
 
-0000805c <main>:
-    805c:	e3a02000 	mov	r2, #0
-    8060:	e3a03701 	mov	r3, #262144	; 0x40000
-    8064:	e3432f20 	movt	r2, #16160	; 0x3f20
-    8068:	e5823004 	str	r3, [r2, #4]
-    806c:	e3a03801 	mov	r3, #65536	; 0x10000
-    8070:	e582301c 	str	r3, [r2, #28]
-    8074:	e5823028 	str	r3, [r2, #40]	; 0x28
-    8078:	eafffffc 	b	8070 <main+0x14>
+0000808c <main>:
+    808c:	e3a01000 	mov	r1, #0
+    8090:	e3431f20 	movt	r1, #16160	; 0x3f20
+    8094:	e3a03701 	mov	r3, #262144	; 0x40000
+    8098:	e5813004 	str	r3, [r1, #4]
+    809c:	e3a02801 	mov	r2, #65536	; 0x10000
+    80a0:	e30c36c0 	movw	r3, #50880	; 0xc6c0
+    80a4:	e581201c 	str	r2, [r1, #28]
+    80a8:	e340302d 	movt	r3, #45	; 0x2d
+    80ac:	e2533001 	subs	r3, r3, #1
+    80b0:	1afffffd 	bne	80ac <main+0x20>
+    80b4:	e30c36c0 	movw	r3, #50880	; 0xc6c0
+    80b8:	e5812028 	str	r2, [r1, #40]	; 0x28
+    80bc:	e340302d 	movt	r3, #45	; 0x2d
+    80c0:	e2533001 	subs	r3, r3, #1
+    80c4:	1afffffd 	bne	80c0 <main+0x34>
+    80c8:	eafffff4 	b	80a0 <main+0x14>

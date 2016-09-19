@@ -16,24 +16,48 @@
   16              		.align	2
   17              		.global	delay
   19              	delay:
-  20              		@ args = 0, pretend = 0, frame = 0
+  20              		@ args = 0, pretend = 0, frame = 8
   21              		@ frame_needed = 0, uses_anonymous_args = 0
   22              		@ link register save eliminated.
-  23 0000 1EFF2FE1 		bx	lr
-  25              		.section	.text.startup,"ax",%progbits
-  26              		.align	2
-  27              		.global	main
-  29              	main:
-  30              		@ args = 0, pretend = 0, frame = 0
-  31              		@ frame_needed = 0, uses_anonymous_args = 0
-  32              		@ link register save eliminated.
-  33 0000 0020A0E3 		mov	r2, #0
-  34 0004 0137A0E3 		mov	r3, #262144
-  35 0008 202F43E3 		movt	r2, 16160
-  36 000c 043082E5 		str	r3, [r2, #4]
-  37 0010 0138A0E3 		mov	r3, #65536
-  38              	.L3:
-  39 0014 1C3082E5 		str	r3, [r2, #28]
-  40 0018 283082E5 		str	r3, [r2, #40]
-  41 001c FCFFFFEA 		b	.L3
-  43              		.ident	"GCC: (GNU) 4.7.2"
+  23 0000 08D04DE2 		sub	sp, sp, #8
+  24 0004 04008DE5 		str	r0, [sp, #4]
+  25 0008 04309DE5 		ldr	r3, [sp, #4]
+  26 000c 000053E3 		cmp	r3, #0
+  27 0010 0500000A 		beq	.L1
+  28              	.L4:
+  29 0014 04309DE5 		ldr	r3, [sp, #4]
+  30 0018 013043E2 		sub	r3, r3, #1
+  31 001c 04308DE5 		str	r3, [sp, #4]
+  32 0020 04309DE5 		ldr	r3, [sp, #4]
+  33 0024 000053E3 		cmp	r3, #0
+  34 0028 F9FFFF1A 		bne	.L4
+  35              	.L1:
+  36 002c 08D08DE2 		add	sp, sp, #8
+  37 0030 1EFF2FE1 		bx	lr
+  39              		.section	.text.startup,"ax",%progbits
+  40              		.align	2
+  41              		.global	main
+  43              	main:
+  44              		@ args = 0, pretend = 0, frame = 0
+  45              		@ frame_needed = 0, uses_anonymous_args = 0
+  46              		@ link register save eliminated.
+  47 0000 0010A0E3 		mov	r1, #0
+  48 0004 201F43E3 		movt	r1, 16160
+  49 0008 0137A0E3 		mov	r3, #262144
+  50 000c 043081E5 		str	r3, [r1, #4]
+  51 0010 0128A0E3 		mov	r2, #65536
+  52              	.L12:
+  53 0014 C0360CE3 		movw	r3, #50880
+  54 0018 1C2081E5 		str	r2, [r1, #28]
+  55 001c 2D3040E3 		movt	r3, 45
+  56              	.L8:
+  57 0020 013053E2 		subs	r3, r3, #1
+  58 0024 FDFFFF1A 		bne	.L8
+  59 0028 C0360CE3 		movw	r3, #50880
+  60 002c 282081E5 		str	r2, [r1, #40]
+  61 0030 2D3040E3 		movt	r3, 45
+  62              	.L9:
+  63 0034 013053E2 		subs	r3, r3, #1
+  64 0038 FDFFFF1A 		bne	.L9
+  65 003c F4FFFFEA 		b	.L12
+  67              		.ident	"GCC: (GNU) 4.7.2"
