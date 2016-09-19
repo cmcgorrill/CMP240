@@ -9,9 +9,10 @@
 
 # Replace with the path to your yagarto install directory.
 # Note: Any paths with spaces in it must have quotes around them, like below:
-# PREFIX ?= "C:/yagarto-20121222"
-# PREFIX ?= "/D/linaro"
-ARMGNU ?= /bin/arm-none-eabi
+# PREFIX ?= "C:/yagarto-20121222/bin/"
+# PREFIX ?= "/D/linaro/bin/"
+PREFIX = ~/CMPE240/lab_1/yagarto/
+ARMGNU ?= $(PREFIX)arm-none-eabi
 
 # Uncomment to create a C assembler listing
 CASM_LIST = -Wa,-adhln	> $(BUILD)$*.lst
