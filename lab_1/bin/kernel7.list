@@ -1,0 +1,36 @@
+
+build/output.elf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00008000 <convert_pin_to_gpio>:
+    8000:	e6ef3070 	uxtb	r3, r0
+    8004:	e3530028 	cmp	r3, #40	; 0x28
+    8008:	959f300c 	ldrls	r3, [pc, #12]	; 801c <convert_pin_to_gpio+0x1c>
+    800c:	83a000ff 	movhi	r0, #255	; 0xff
+    8010:	97d30000 	ldrbls	r0, [r3, r0]
+    8014:	e6af0070 	sxtb	r0, r0
+    8018:	e12fff1e 	bx	lr
+    801c:	00008054 	.word	0x00008054
+
+00008020 <convert_gpio_to_pin>:
+    8020:	e6ef3070 	uxtb	r3, r0
+    8024:	e353001c 	cmp	r3, #28
+    8028:	959f3010 	ldrls	r3, [pc, #16]	; 8040 <convert_gpio_to_pin+0x20>
+    802c:	83a000ff 	movhi	r0, #255	; 0xff
+    8030:	90830000 	addls	r0, r3, r0
+    8034:	95d00028 	ldrbls	r0, [r0, #40]	; 0x28
+    8038:	e6af0070 	sxtb	r0, r0
+    803c:	e12fff1e 	bx	lr
+    8040:	00008054 	.word	0x00008054
+
+00008044 <mmio_write>:
+    8044:	e5801000 	str	r1, [r0]
+    8048:	e12fff1e 	bx	lr
+
+0000804c <delay>:
+    804c:	e12fff1e 	bx	lr
+
+00008050 <main>:
+    8050:	eafffffe 	b	8050 <main>

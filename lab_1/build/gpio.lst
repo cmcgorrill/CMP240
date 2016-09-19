@@ -1,0 +1,134 @@
+   1              		.arch armv7-a
+   2              		.eabi_attribute 27, 3
+   3              		.eabi_attribute 28, 1
+   4              		.fpu neon-vfpv4
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.file	"gpio.c"
+  15              		.text
+  16              		.align	2
+  17              		.global	convert_pin_to_gpio
+  19              	convert_pin_to_gpio:
+  20              		@ args = 0, pretend = 0, frame = 0
+  21              		@ frame_needed = 0, uses_anonymous_args = 0
+  22              		@ link register save eliminated.
+  23 0000 7030EFE6 		uxtb	r3, r0
+  24 0004 280053E3 		cmp	r3, #40
+  25 0008 0C309F95 		ldrls	r3, .L4
+  26 000c FF00A083 		movhi	r0, #255
+  27 0010 0000D397 		ldrlsb	r0, [r3, r0]	@ zero_extendqisi2
+  28 0014 7000AFE6 		sxtb	r0, r0
+  29 0018 1EFF2FE1 		bx	lr
+  30              	.L5:
+  31              		.align	2
+  32              	.L4:
+  33 001c 00000000 		.word	.LANCHOR0
+  35              		.align	2
+  36              		.global	convert_gpio_to_pin
+  38              	convert_gpio_to_pin:
+  39              		@ args = 0, pretend = 0, frame = 0
+  40              		@ frame_needed = 0, uses_anonymous_args = 0
+  41              		@ link register save eliminated.
+  42 0020 7030EFE6 		uxtb	r3, r0
+  43 0024 1C0053E3 		cmp	r3, #28
+  44 0028 10309F95 		ldrls	r3, .L9
+  45 002c FF00A083 		movhi	r0, #255
+  46 0030 00008390 		addls	r0, r3, r0
+  47 0034 2800D095 		ldrlsb	r0, [r0, #40]	@ zero_extendqisi2
+  48 0038 7000AFE6 		sxtb	r0, r0
+  49 003c 1EFF2FE1 		bx	lr
+  50              	.L10:
+  51              		.align	2
+  52              	.L9:
+  53 0040 00000000 		.word	.LANCHOR0
+  55              		.align	2
+  56              		.global	mmio_write
+  58              	mmio_write:
+  59              		@ args = 0, pretend = 0, frame = 0
+  60              		@ frame_needed = 0, uses_anonymous_args = 0
+  61              		@ link register save eliminated.
+  62 0044 001080E5 		str	r1, [r0, #0]
+  63 0048 1EFF2FE1 		bx	lr
+  65              		.global	gpio_to_pin_array
+  66              		.global	pin_to_gpio_array
+  67              		.data
+  68              		.align	2
+  69              		.set	.LANCHOR0,. + 0
+  72              	pin_to_gpio_array:
+  73 0000 FF       		.byte	-1
+  74 0001 FF       		.byte	-1
+  75 0002 02       		.byte	2
+  76 0003 FF       		.byte	-1
+  77 0004 03       		.byte	3
+  78 0005 FF       		.byte	-1
+  79 0006 04       		.byte	4
+  80 0007 0E       		.byte	14
+  81 0008 FF       		.byte	-1
+  82 0009 0F       		.byte	15
+  83 000a 11       		.byte	17
+  84 000b 12       		.byte	18
+  85 000c 1B       		.byte	27
+  86 000d FF       		.byte	-1
+  87 000e 16       		.byte	22
+  88 000f 17       		.byte	23
+  89 0010 FF       		.byte	-1
+  90 0011 18       		.byte	24
+  91 0012 0A       		.byte	10
+  92 0013 FF       		.byte	-1
+  93 0014 09       		.byte	9
+  94 0015 19       		.byte	25
+  95 0016 0B       		.byte	11
+  96 0017 08       		.byte	8
+  97 0018 FF       		.byte	-1
+  98 0019 07       		.byte	7
+  99 001a FF       		.byte	-1
+ 100 001b FF       		.byte	-1
+ 101 001c 05       		.byte	5
+ 102 001d FF       		.byte	-1
+ 103 001e 06       		.byte	6
+ 104 001f 0C       		.byte	12
+ 105 0020 0D       		.byte	13
+ 106 0021 FF       		.byte	-1
+ 107 0022 13       		.byte	19
+ 108 0023 10       		.byte	16
+ 109 0024 1A       		.byte	26
+ 110 0025 14       		.byte	20
+ 111 0026 FF       		.byte	-1
+ 112 0027 15       		.byte	21
+ 115              	gpio_to_pin_array:
+ 116 0028 FF       		.byte	-1
+ 117 0029 FF       		.byte	-1
+ 118 002a 03       		.byte	3
+ 119 002b 05       		.byte	5
+ 120 002c 07       		.byte	7
+ 121 002d 1D       		.byte	29
+ 122 002e 1F       		.byte	31
+ 123 002f 1A       		.byte	26
+ 124 0030 18       		.byte	24
+ 125 0031 15       		.byte	21
+ 126 0032 13       		.byte	19
+ 127 0033 17       		.byte	23
+ 128 0034 20       		.byte	32
+ 129 0035 21       		.byte	33
+ 130 0036 08       		.byte	8
+ 131 0037 0A       		.byte	10
+ 132 0038 24       		.byte	36
+ 133 0039 0B       		.byte	11
+ 134 003a 0C       		.byte	12
+ 135 003b 23       		.byte	35
+ 136 003c 26       		.byte	38
+ 137 003d 28       		.byte	40
+ 138 003e 0F       		.byte	15
+ 139 003f 10       		.byte	16
+ 140 0040 12       		.byte	18
+ 141 0041 16       		.byte	22
+ 142 0042 25       		.byte	37
+ 143 0043 0D       		.byte	13
+ 144              		.ident	"GCC: (GNU) 4.7.2"
