@@ -144,9 +144,9 @@ void init_uart()
 	*/
 	
     //Enable FIFOs and set word length by shifting in '1's
-    uart[UART0_LCRH] |= (1<<3) |
-                        (1>>2) |
-                        (11<<0);
+    uart[UART0_LCRH] |= (1<<4) |
+                        (1<<5) |
+                        (1<<6);
 
 //    uart[UART0_LCRH] |= (<<PRELAB - ENABLE TX FIFO>>) |
 //									   (<<PRELAB - ENABLE RX FIFO>>) |
@@ -165,9 +165,9 @@ void init_uart()
      */
     
     // Enable Receive, Enable Tx, Enable UART.
-    uart[UART0_CR] |= ((1<<8) |
-                       (1<<9) |
-                       1);
+    uart[UART0_CR] |= ((1<<9) |
+                       (1<<8) |
+                       1<<0);
 //    uart[UART0_CR] |= ((<<PRELAB - RX ENABLE>>) | 
 //									(<<PRELAB - TX ENABLE>>) | 
 //									(<<PRELAB - UART ENABLE>>));
