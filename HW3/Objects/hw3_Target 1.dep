@@ -1,0 +1,2 @@
+Dependencies for Project 'hw3', Target 'Target 1': (DO NOT MODIFY !)
+F (.\sieve.s)(0x57EC71B5)(--cpu ARM9E --pd "__EVAL SETA 1" -g --apcs=interwork -IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 521"--list .\listings\sieve.lst --xref -o .\objects\sieve.o --depend .\objects\sieve.d)
