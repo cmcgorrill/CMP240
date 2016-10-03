@@ -1,0 +1,291 @@
+   1              		.arch armv7-a
+   2              		.eabi_attribute 27, 3
+   3              		.eabi_attribute 28, 1
+   4              		.fpu neon-vfpv4
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.file	"uart.c"
+  15              		.text
+  16              		.align	2
+  17              		.global	wait_for_tx_slot
+  19              	wait_for_tx_slot:
+  20              		@ args = 0, pretend = 0, frame = 0
+  21              		@ frame_needed = 0, uses_anonymous_args = 0
+  22              		@ link register save eliminated.
+  23 0000 012AA0E3 		mov	r2, #4096
+  24 0004 202F43E3 		movt	r2, 16160
+  25              	.L2:
+  26 0008 183092E5 		ldr	r3, [r2, #24]
+  27 000c 200013E3 		tst	r3, #32
+  28 0010 FCFFFF1A 		bne	.L2
+  29 0014 1EFF2FE1 		bx	lr
+  31              		.align	2
+  32              		.global	wait_for_uart_idle
+  34              	wait_for_uart_idle:
+  35              		@ args = 0, pretend = 0, frame = 0
+  36              		@ frame_needed = 0, uses_anonymous_args = 0
+  37              		@ link register save eliminated.
+  38 0018 012AA0E3 		mov	r2, #4096
+  39 001c 202F43E3 		movt	r2, 16160
+  40              	.L6:
+  41 0020 183092E5 		ldr	r3, [r2, #24]
+  42 0024 080013E3 		tst	r3, #8
+  43 0028 FCFFFF1A 		bne	.L6
+  44 002c 1EFF2FE1 		bx	lr
+  46              		.align	2
+  47              		.global	wait_for_rx_slot
+  49              	wait_for_rx_slot:
+  50              		@ args = 0, pretend = 0, frame = 0
+  51              		@ frame_needed = 0, uses_anonymous_args = 0
+  52              		@ link register save eliminated.
+  53 0030 012AA0E3 		mov	r2, #4096
+  54 0034 202F43E3 		movt	r2, 16160
+  55              	.L9:
+  56 0038 183092E5 		ldr	r3, [r2, #24]
+  57 003c 400013E3 		tst	r3, #64
+  58 0040 FCFFFF1A 		bne	.L9
+  59 0044 1EFF2FE1 		bx	lr
+  61              		.align	2
+  62              		.global	wait_for_rx_has_char
+  64              	wait_for_rx_has_char:
+  65              		@ args = 0, pretend = 0, frame = 0
+  66              		@ frame_needed = 0, uses_anonymous_args = 0
+  67              		@ link register save eliminated.
+  68 0048 012AA0E3 		mov	r2, #4096
+  69 004c 202F43E3 		movt	r2, 16160
+  70              	.L12:
+  71 0050 183092E5 		ldr	r3, [r2, #24]
+  72 0054 100013E3 		tst	r3, #16
+  73 0058 FCFFFF1A 		bne	.L12
+  74 005c 1EFF2FE1 		bx	lr
+  76              		.align	2
+  77              		.global	delay
+  79              	delay:
+  80              		@ args = 0, pretend = 0, frame = 8
+  81              		@ frame_needed = 0, uses_anonymous_args = 0
+  82              		@ link register save eliminated.
+  83 0060 08D04DE2 		sub	sp, sp, #8
+  84 0064 04008DE5 		str	r0, [sp, #4]
+  85 0068 04309DE5 		ldr	r3, [sp, #4]
+  86 006c 000053E3 		cmp	r3, #0
+  87 0070 0500000A 		beq	.L14
+  88              	.L17:
+  89 0074 04309DE5 		ldr	r3, [sp, #4]
+  90 0078 013043E2 		sub	r3, r3, #1
+  91 007c 04308DE5 		str	r3, [sp, #4]
+  92 0080 04309DE5 		ldr	r3, [sp, #4]
+  93 0084 000053E3 		cmp	r3, #0
+  94 0088 F9FFFF1A 		bne	.L17
+  95              	.L14:
+  96 008c 08D08DE2 		add	sp, sp, #8
+  97 0090 1EFF2FE1 		bx	lr
+  99              		.align	2
+ 100              		.global	init_uart
+ 102              	init_uart:
+ 103              		@ args = 0, pretend = 0, frame = 0
+ 104              		@ frame_needed = 0, uses_anonymous_args = 0
+ 105              		@ link register save eliminated.
+ 106 0094 0020A0E3 		mov	r2, #0
+ 107 0098 202F43E3 		movt	r2, 16160
+ 108 009c 041092E5 		ldr	r1, [r2, #4]
+ 109 00a0 013AA0E3 		mov	r3, #4096
+ 110 00a4 0A1981E3 		orr	r1, r1, #163840
+ 111 00a8 041082E5 		str	r1, [r2, #4]
+ 112 00ac 203F43E3 		movt	r3, 16160
+ 113 00b0 0020A0E3 		mov	r2, #0
+ 114 00b4 0310A0E1 		mov	r1, r3
+ 115 00b8 302083E5 		str	r2, [r3, #48]
+ 116              	.L20:
+ 117 00bc 183091E5 		ldr	r3, [r1, #24]
+ 118 00c0 012AA0E3 		mov	r2, #4096
+ 119 00c4 083013E2 		ands	r3, r3, #8
+ 120 00c8 202F43E3 		movt	r2, 16160
+ 121 00cc FAFFFF1A 		bne	.L20
+ 122 00d0 2C0092E5 		ldr	r0, [r2, #44]
+ 123 00d4 0010A0E3 		mov	r1, #0
+ 124 00d8 201F43E3 		movt	r1, 16160
+ 125 00dc 2C0082E5 		str	r0, [r2, #44]
+ 126 00e0 9620A0E3 		mov	r2, #150
+ 127 00e4 943081E5 		str	r3, [r1, #148]
+ 128              	.L21:
+ 129 00e8 012052E2 		subs	r2, r2, #1
+ 130 00ec FDFFFF1A 		bne	.L21
+ 131 00f0 0030A0E3 		mov	r3, #0
+ 132 00f4 203F43E3 		movt	r3, 16160
+ 133 00f8 0329A0E3 		mov	r2, #49152
+ 134 00fc 982083E5 		str	r2, [r3, #152]
+ 135 0100 9630A0E3 		mov	r3, #150
+ 136              	.L22:
+ 137 0104 013053E2 		subs	r3, r3, #1
+ 138 0108 FDFFFF1A 		bne	.L22
+ 139 010c 0010A0E3 		mov	r1, #0
+ 140 0110 012AA0E3 		mov	r2, #4096
+ 141 0114 201F43E3 		movt	r1, 16160
+ 142 0118 983081E5 		str	r3, [r1, #152]
+ 143 011c 202F43E3 		movt	r2, 16160
+ 144 0120 FF3700E3 		movw	r3, #2047
+ 145 0124 443082E5 		str	r3, [r2, #68]
+ 146 0128 1A30A0E3 		mov	r3, #26
+ 147 012c 243082E5 		str	r3, [r2, #36]
+ 148 0130 0130A0E3 		mov	r3, #1
+ 149 0134 283082E5 		str	r3, [r2, #40]
+ 150 0138 2C3092E5 		ldr	r3, [r2, #44]
+ 151 013c 703083E3 		orr	r3, r3, #112
+ 152 0140 2C3082E5 		str	r3, [r2, #44]
+ 153 0144 383092E5 		ldr	r3, [r2, #56]
+ 154 0148 7F3E83E3 		orr	r3, r3, #2032
+ 155 014c 023083E3 		orr	r3, r3, #2
+ 156 0150 383082E5 		str	r3, [r2, #56]
+ 157 0154 303092E5 		ldr	r3, [r2, #48]
+ 158 0158 033C83E3 		orr	r3, r3, #768
+ 159 015c 013083E3 		orr	r3, r3, #1
+ 160 0160 303082E5 		str	r3, [r2, #48]
+ 161 0164 1EFF2FE1 		bx	lr
+ 163              		.align	2
+ 164              		.global	get_char
+ 166              	get_char:
+ 167              		@ args = 0, pretend = 0, frame = 0
+ 168              		@ frame_needed = 0, uses_anonymous_args = 0
+ 169              		@ link register save eliminated.
+ 170 0168 012AA0E3 		mov	r2, #4096
+ 171 016c 202F43E3 		movt	r2, 16160
+ 172              	.L32:
+ 173 0170 183092E5 		ldr	r3, [r2, #24]
+ 174 0174 100013E3 		tst	r3, #16
+ 175 0178 FCFFFF1A 		bne	.L32
+ 176 017c 9630A0E3 		mov	r3, #150
+ 177              	.L33:
+ 178 0180 013053E2 		subs	r3, r3, #1
+ 179 0184 FDFFFF1A 		bne	.L33
+ 180 0188 013AA0E3 		mov	r3, #4096
+ 181 018c 203F43E3 		movt	r3, 16160
+ 182 0190 000093E5 		ldr	r0, [r3, #0]
+ 183 0194 7000EFE6 		uxtb	r0, r0
+ 184 0198 1EFF2FE1 		bx	lr
+ 186              		.align	2
+ 187              		.global	put_char
+ 189              	put_char:
+ 190              		@ args = 0, pretend = 0, frame = 0
+ 191              		@ frame_needed = 0, uses_anonymous_args = 0
+ 192              		@ link register save eliminated.
+ 193 019c 012AA0E3 		mov	r2, #4096
+ 194 01a0 202F43E3 		movt	r2, 16160
+ 195              	.L40:
+ 196 01a4 183092E5 		ldr	r3, [r2, #24]
+ 197 01a8 200013E3 		tst	r3, #32
+ 198 01ac FCFFFF1A 		bne	.L40
+ 199 01b0 9630A0E3 		mov	r3, #150
+ 200              	.L41:
+ 201 01b4 013053E2 		subs	r3, r3, #1
+ 202 01b8 FDFFFF1A 		bne	.L41
+ 203 01bc 013AA0E3 		mov	r3, #4096
+ 204 01c0 203F43E3 		movt	r3, 16160
+ 205 01c4 000083E5 		str	r0, [r3, #0]
+ 206 01c8 1EFF2FE1 		bx	lr
+ 208              		.align	2
+ 209              		.global	put_string
+ 211              	put_string:
+ 212              		@ args = 0, pretend = 0, frame = 0
+ 213              		@ frame_needed = 0, uses_anonymous_args = 0
+ 214              		@ link register save eliminated.
+ 215 01cc 0010D0E5 		ldrb	r1, [r0, #0]	@ zero_extendqisi2
+ 216 01d0 000051E3 		cmp	r1, #0
+ 217 01d4 0D00000A 		beq	.L49
+ 218 01d8 012AA0E3 		mov	r2, #4096
+ 219 01dc 00C0A0E3 		mov	ip, #0
+ 220 01e0 202F43E3 		movt	r2, 16160
+ 221              	.L60:
+ 222 01e4 183092E5 		ldr	r3, [r2, #24]
+ 223 01e8 200013E3 		tst	r3, #32
+ 224 01ec 9630A003 		moveq	r3, #150
+ 225 01f0 FBFFFF1A 		bne	.L60
+ 226              	.L51:
+ 227 01f4 013053E2 		subs	r3, r3, #1
+ 228 01f8 FDFFFF1A 		bne	.L51
+ 229 01fc 001082E5 		str	r1, [r2, #0]
+ 230 0200 01C08CE2 		add	ip, ip, #1
+ 231 0204 0C10D0E7 		ldrb	r1, [r0, ip]	@ zero_extendqisi2
+ 232 0208 000051E3 		cmp	r1, #0
+ 233 020c F4FFFF1A 		bne	.L60
+ 234              	.L49:
+ 235 0210 012AA0E3 		mov	r2, #4096
+ 236 0214 202F43E3 		movt	r2, 16160
+ 237              	.L56:
+ 238 0218 183092E5 		ldr	r3, [r2, #24]
+ 239 021c 080013E3 		tst	r3, #8
+ 240 0220 FCFFFF1A 		bne	.L56
+ 241 0224 1EFF2FE1 		bx	lr
+ 243              		.align	2
+ 244              		.global	get_string
+ 246              	get_string:
+ 247              		@ args = 0, pretend = 0, frame = 8
+ 248              		@ frame_needed = 0, uses_anonymous_args = 0
+ 249 0228 F0412DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, lr}
+ 250 022c 08D04DE2 		sub	sp, sp, #8
+ 251 0230 0050A0E3 		mov	r5, #0
+ 252 0234 08608DE2 		add	r6, sp, #8
+ 253 0238 014AA0E3 		mov	r4, #4096
+ 254 023c 0070A0E1 		mov	r7, r0
+ 255 0240 015066E5 		strb	r5, [r6, #-1]!
+ 256 0244 018041E2 		sub	r8, r1, #1
+ 257 0248 204F43E3 		movt	r4, 16160
+ 258              	.L78:
+ 259 024c 080055E1 		cmp	r5, r8
+ 260 0250 1700002A 		bcs	.L72
+ 261              	.L84:
+ 262 0254 0730DDE5 		ldrb	r3, [sp, #7]	@ zero_extendqisi2
+ 263 0258 0D0053E3 		cmp	r3, #13
+ 264 025c 0A005313 		cmpne	r3, #10
+ 265 0260 1300000A 		beq	.L72
+ 266              	.L74:
+ 267 0264 183094E5 		ldr	r3, [r4, #24]
+ 268 0268 100013E3 		tst	r3, #16
+ 269 026c FCFFFF1A 		bne	.L74
+ 270 0270 9630A0E3 		mov	r3, #150
+ 271              	.L65:
+ 272 0274 013053E2 		subs	r3, r3, #1
+ 273 0278 FDFFFF1A 		bne	.L65
+ 274 027c 003094E5 		ldr	r3, [r4, #0]
+ 275 0280 7330EFE6 		uxtb	r3, r3
+ 276 0284 0D0053E3 		cmp	r3, #13
+ 277 0288 0A005313 		cmpne	r3, #10
+ 278 028c 0730CDE5 		strb	r3, [sp, #7]
+ 279 0290 0C00001A 		bne	.L83
+ 280 0294 0D0053E3 		cmp	r3, #13
+ 281 0298 0100000A 		beq	.L82
+ 282 029c 0A0053E3 		cmp	r3, #10
+ 283 02a0 E9FFFF1A 		bne	.L78
+ 284              	.L82:
+ 285 02a4 34009FE5 		ldr	r0, .L85
+ 286 02a8 FEFFFFEB 		bl	put_string
+ 287 02ac 080055E1 		cmp	r5, r8
+ 288 02b0 E7FFFF3A 		bcc	.L84
+ 289              	.L72:
+ 290 02b4 0030A0E3 		mov	r3, #0
+ 291 02b8 0530C7E7 		strb	r3, [r7, r5]
+ 292 02bc 0500A0E1 		mov	r0, r5
+ 293 02c0 08D08DE2 		add	sp, sp, #8
+ 294 02c4 F081BDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, pc}
+ 295              	.L83:
+ 296 02c8 0600A0E1 		mov	r0, r6
+ 297 02cc FEFFFFEB 		bl	put_string
+ 298 02d0 0730DDE5 		ldrb	r3, [sp, #7]	@ zero_extendqisi2
+ 299 02d4 015085E2 		add	r5, r5, #1
+ 300 02d8 0530C7E7 		strb	r3, [r7, r5]
+ 301 02dc DAFFFFEA 		b	.L78
+ 302              	.L86:
+ 303              		.align	2
+ 304              	.L85:
+ 305 02e0 00000000 		.word	.LC0
+ 307              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 308              		.align	2
+ 309              	.LC0:
+ 310 0000 0D0A00   		.ascii	"\015\012\000"
+ 311 0003 00       		.ident	"GCC: (GNU) 4.7.2"
