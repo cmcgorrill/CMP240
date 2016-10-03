@@ -127,7 +127,7 @@ Disassembly of section .text:
     8184:	e3432f20 	movt	r2, #16160	; 0x3f20
     8188:	e5921004 	ldr	r1, [r2, #4]
     818c:	e3a03a01 	mov	r3, #4096	; 0x1000
-    8190:	e381190a 	orr	r1, r1, #163840	; 0x28000
+    8190:	e3811909 	orr	r1, r1, #147456	; 0x24000
     8194:	e5821004 	str	r1, [r2, #4]
     8198:	e3433f20 	movt	r3, #16160	; 0x3f20
     819c:	e3a02000 	mov	r2, #0
@@ -233,49 +233,49 @@ Disassembly of section .text:
 
 00008314 <get_string>:
     8314:	e92d41f0 	push	{r4, r5, r6, r7, r8, lr}
-    8318:	e24dd008 	sub	sp, sp, #8
-    831c:	e3a05000 	mov	r5, #0
-    8320:	e28d6008 	add	r6, sp, #8
-    8324:	e3a04a01 	mov	r4, #4096	; 0x1000
-    8328:	e1a07000 	mov	r7, r0
-    832c:	e5665001 	strb	r5, [r6, #-1]!
-    8330:	e2418001 	sub	r8, r1, #1
-    8334:	e3434f20 	movt	r4, #16160	; 0x3f20
-    8338:	e1550008 	cmp	r5, r8
-    833c:	2a000017 	bcs	83a0 <get_string+0x8c>
-    8340:	e5dd3007 	ldrb	r3, [sp, #7]
-    8344:	e353000d 	cmp	r3, #13
-    8348:	1353000a 	cmpne	r3, #10
-    834c:	0a000013 	beq	83a0 <get_string+0x8c>
-    8350:	e5943018 	ldr	r3, [r4, #24]
-    8354:	e3130010 	tst	r3, #16
-    8358:	1afffffc 	bne	8350 <get_string+0x3c>
-    835c:	e3a03096 	mov	r3, #150	; 0x96
-    8360:	e2533001 	subs	r3, r3, #1
-    8364:	1afffffd 	bne	8360 <get_string+0x4c>
-    8368:	e5943000 	ldr	r3, [r4]
-    836c:	e6ef3073 	uxtb	r3, r3
-    8370:	e353000d 	cmp	r3, #13
-    8374:	1353000a 	cmpne	r3, #10
-    8378:	e5cd3007 	strb	r3, [sp, #7]
-    837c:	1a00000c 	bne	83b4 <get_string+0xa0>
-    8380:	e353000d 	cmp	r3, #13
-    8384:	0a000001 	beq	8390 <get_string+0x7c>
-    8388:	e353000a 	cmp	r3, #10
-    838c:	1affffe9 	bne	8338 <get_string+0x24>
-    8390:	e59f0034 	ldr	r0, [pc, #52]	; 83cc <get_string+0xb8>
-    8394:	ebffffc7 	bl	82b8 <put_string>
-    8398:	e1550008 	cmp	r5, r8
-    839c:	3affffe7 	bcc	8340 <get_string+0x2c>
-    83a0:	e3a03000 	mov	r3, #0
-    83a4:	e7c73005 	strb	r3, [r7, r5]
-    83a8:	e1a00005 	mov	r0, r5
-    83ac:	e28dd008 	add	sp, sp, #8
-    83b0:	e8bd81f0 	pop	{r4, r5, r6, r7, r8, pc}
-    83b4:	e1a00006 	mov	r0, r6
-    83b8:	ebffffbe 	bl	82b8 <put_string>
-    83bc:	e5dd3007 	ldrb	r3, [sp, #7]
-    83c0:	e2855001 	add	r5, r5, #1
-    83c4:	e7c73005 	strb	r3, [r7, r5]
-    83c8:	eaffffda 	b	8338 <get_string+0x24>
+    8318:	e3a05000 	mov	r5, #0
+    831c:	e3a04a01 	mov	r4, #4096	; 0x1000
+    8320:	e1a08000 	mov	r8, r0
+    8324:	e2417001 	sub	r7, r1, #1
+    8328:	e1a06005 	mov	r6, r5
+    832c:	e3434f20 	movt	r4, #16160	; 0x3f20
+    8330:	e1560007 	cmp	r6, r7
+    8334:	2a000016 	bcs	8394 <get_string+0x80>
+    8338:	e355000d 	cmp	r5, #13
+    833c:	1355000a 	cmpne	r5, #10
+    8340:	0a000013 	beq	8394 <get_string+0x80>
+    8344:	e5943018 	ldr	r3, [r4, #24]
+    8348:	e3130010 	tst	r3, #16
+    834c:	1afffffc 	bne	8344 <get_string+0x30>
+    8350:	e3a03096 	mov	r3, #150	; 0x96
+    8354:	e2533001 	subs	r3, r3, #1
+    8358:	1afffffd 	bne	8354 <get_string+0x40>
+    835c:	e5945000 	ldr	r5, [r4]
+    8360:	e6ef5075 	uxtb	r5, r5
+    8364:	e355000d 	cmp	r5, #13
+    8368:	1355000a 	cmpne	r5, #10
+    836c:	e1a02005 	mov	r2, r5
+    8370:	1a00000b 	bne	83a4 <get_string+0x90>
+    8374:	e355000d 	cmp	r5, #13
+    8378:	0a000001 	beq	8384 <get_string+0x70>
+    837c:	e355000a 	cmp	r5, #10
+    8380:	1affffea 	bne	8330 <get_string+0x1c>
+    8384:	e59f0040 	ldr	r0, [pc, #64]	; 83cc <get_string+0xb8>
+    8388:	ebffffca 	bl	82b8 <put_string>
+    838c:	e1560007 	cmp	r6, r7
+    8390:	3affffe8 	bcc	8338 <get_string+0x24>
+    8394:	e3a03000 	mov	r3, #0
+    8398:	e7c83006 	strb	r3, [r8, r6]
+    839c:	e1a00006 	mov	r0, r6
+    83a0:	e8bd81f0 	pop	{r4, r5, r6, r7, r8, pc}
+    83a4:	e5943018 	ldr	r3, [r4, #24]
+    83a8:	e3130020 	tst	r3, #32
+    83ac:	1afffffc 	bne	83a4 <get_string+0x90>
+    83b0:	e3a03096 	mov	r3, #150	; 0x96
+    83b4:	e2533001 	subs	r3, r3, #1
+    83b8:	1afffffd 	bne	83b4 <get_string+0xa0>
+    83bc:	e5842000 	str	r2, [r4]
+    83c0:	e7c82006 	strb	r2, [r8, r6]
+    83c4:	e2866001 	add	r6, r6, #1
+    83c8:	eaffffd8 	b	8330 <get_string+0x1c>
     83cc:	000083e4 	.word	0x000083e4

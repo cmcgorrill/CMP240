@@ -87,7 +87,7 @@ void init_uart()
     // p19 p18 p17 p16 p15 p14 p13 p12 p11 p10
     // 000 000 000 000 100 100 000 000 000 000
     // 0010 0100 0000 0000 0000
-    gpio[GPFSEL1] |= 0x28000;
+    gpio[GPFSEL1] |= 0x24000;
 
     // According to the BCM2835 manual page 185, we
     // need to do the following to enable UART.
@@ -182,7 +182,7 @@ extern char get_char()
 	
 	// Read the data register.
     // Only care about the last 8 bits, so mask them off.
-    return (char)(uart[UART0_DR] & 0x00FF);
+    return (char)(uart[UART0_DR] & 0xFF);
 }
 
 /// Writes a single character to the uart port.
@@ -216,10 +216,10 @@ extern size_t get_string(char* buffer, size_t buffer_size)
 
         if ((ch != '\n') && (ch != '\r'))
         {
-            put_string(&ch);
+            put_char(ch);
             
-			count++;
 			buffer[count] = ch;
+			count++;
 			
         }
         // OS dependent.  May get \r, may get \n.  Either way, we'll
