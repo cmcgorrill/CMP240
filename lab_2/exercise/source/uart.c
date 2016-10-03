@@ -16,7 +16,7 @@
 #define RX_FIFO_FULL (1 << 6)
 
 // Tx FIFO empty
-#define TX_FIFO_EMPTY (1<< 7)
+#define TX_FIFO_EMPTY (1 << 7)
 
 /* <<PRELAB - COMPLETE THE FOLLOWING POLLING FUNCTIONS BASED ON 
 /	THE DESCRIPTIONS GIVEN. REFER TO THE BCM2835 MANUAL.>>
@@ -176,9 +176,10 @@ void init_uart()
 /// Gets a single character from the UART port.
 extern char get_char()
 {
-	// <<Insert polling function here>>
-	
-
+	char c;
+	while (!RDRF = 1) {
+		//check RDRF bit of UART0_S1
+	}
 	// Do not remove!!! The RPi UART is a bit... lazy... 
     delay(150);
 	
@@ -190,13 +191,11 @@ extern char get_char()
 /// Writes a single character to the uart port.
 extern void put_char(char c)
 {
-	// <<Insert polling function here>>
-	
-	
+	wait_for_tx_slot();
 	// Do not remove!!! The RPi UART is a bit... lazy... 
     delay(150);
 	
-	// <<Write the character to the data register here.>>
+	uart[UART0_DR] = c;
 	
 }
 
