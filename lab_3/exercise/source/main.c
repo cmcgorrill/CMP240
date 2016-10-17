@@ -10,6 +10,7 @@ void blink_once()
 
     // Turn off LED
     gpio[GPCLR0] = 0x10000;
+	timer_delay_ms(500000);
 
 }
 
@@ -19,12 +20,9 @@ void blink_code(uint32_t err)
     {
         // Blink the LED
         blink_once();
-
     }
-
     // Delay for desired time
     timer_delay_sec(5);
-    
 }
 
 int main()
@@ -45,17 +43,12 @@ int main()
     // Mainline loop
     while (1)
     {
-        // implement error code described in lab
+		count %= 10;
+		// implement error code described in lab
         if(count > 0){
             blink_code(count);
         }
         count++;
-        
-        if(count%10 == 0){
-            count = 0;
-        }
-        
-
     }
     
     return 0;

@@ -30,5 +30,5 @@ void timer_delay_ms(uint32_t delayMs)
 void timer_delay_sec(uint32_t delaySec)
 {
     // scale the second delay appropriately
-    timer_delay_us(delayMs * 1000000);
+    timer_delay_ms(delaySec * 1000000);
 }
