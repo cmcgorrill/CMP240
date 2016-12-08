@@ -29,6 +29,7 @@ int main()
 {
     // Init GPIO select for external LED
     gpio[GPFSEL1] = 0x40000;
+	gpio[GPFSEL3] = 0x40000;
 
     // Init uart for debugging purposes
     init_uart();
